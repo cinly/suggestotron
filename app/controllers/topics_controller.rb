@@ -10,6 +10,8 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
+    @topic = Topic.find(params[:id])
+    @topic.votes.order("votes.count DESC")
   end
 
   # GET /topics/new
@@ -73,6 +75,10 @@ class TopicsController < ApplicationController
     redirect_to(topics_path)
   end
 
+  def about
+    @topic.about
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_topic
@@ -83,4 +89,5 @@ class TopicsController < ApplicationController
     def topic_params
       params.require(:topic).permit(:title, :description)
     end
+
 end
